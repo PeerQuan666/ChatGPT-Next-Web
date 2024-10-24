@@ -3,14 +3,11 @@ import React, { useEffect, useRef, useMemo, useState, Fragment } from "react";
 import styles from "./home.module.scss";
 
 import { IconButton } from "./button";
-import SettingsIcon from "../icons/settings.svg";
-import GithubIcon from "../icons/github.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import DragIcon from "../icons/drag.svg";
-import DiscoveryIcon from "../icons/discovery.svg";
 
 import Locale from "../locales";
 
@@ -23,10 +20,9 @@ import {
   NARROW_SIDEBAR_WIDTH,
   Path,
   PLUGINS,
-  REPO_URL,
 } from "../constant";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { isIOS, useMobileScreen } from "../utils";
 import dynamic from "next/dynamic";
 import { showConfirm, Selector } from "./ui-lib";
@@ -230,8 +226,8 @@ export function SideBar(props: { className?: string }) {
       {...props}
     >
       <SideBarHeader
-        title="NextChat"
-        subTitle="Build your own AI assistant."
+        title="AI助手"
+        subTitle="构建您自己的 AI 助手。"
         logo={<ChatGptIcon />}
         shouldNarrow={shouldNarrow}
       >
@@ -250,12 +246,27 @@ export function SideBar(props: { className?: string }) {
             shadow
           />
           <IconButton
+            icon={<AddIcon />}
+            className={styles["sidebar-bar-button"]}
+            text={shouldNarrow ? undefined : Locale.Home.NewChat}
+            onClick={() => {
+              if (config.dontShowMaskSplashScreen) {
+                chatStore.newSession();
+                navigate(Path.Chat);
+              } else {
+                navigate(Path.NewChat);
+              }
+            }}
+            shadow
+          />
+
+          {/* <IconButton
             icon={<DiscoveryIcon />}
             text={shouldNarrow ? undefined : Locale.Discovery.Name}
             className={styles["sidebar-bar-button"]}
             onClick={() => setShowPluginSelector(true)}
             shadow
-          />
+          /> */}
         </div>
         {showPluginSelector && (
           <Selector
@@ -296,7 +307,7 @@ export function SideBar(props: { className?: string }) {
                 }}
               />
             </div>
-            <div className={styles["sidebar-action"]}>
+            {/* <div className={styles["sidebar-action"]}>
               <Link to={Path.Settings}>
                 <IconButton
                   aria={Locale.Settings.Title}
@@ -313,24 +324,24 @@ export function SideBar(props: { className?: string }) {
                   shadow
                 />
               </a>
-            </div>
+            </div> */}
           </>
         }
-        secondaryAction={
-          <IconButton
-            icon={<AddIcon />}
-            text={shouldNarrow ? undefined : Locale.Home.NewChat}
-            onClick={() => {
-              if (config.dontShowMaskSplashScreen) {
-                chatStore.newSession();
-                navigate(Path.Chat);
-              } else {
-                navigate(Path.NewChat);
-              }
-            }}
-            shadow
-          />
-        }
+        // secondaryAction={
+        //   <IconButton
+        //     icon={<AddIcon />}
+        //     text={shouldNarrow ? undefined : Locale.Home.NewChat}
+        //     onClick={() => {
+        //       if (config.dontShowMaskSplashScreen) {
+        //         chatStore.newSession();
+        //         navigate(Path.Chat);
+        //       } else {
+        //         navigate(Path.NewChat);
+        //       }
+        //     }}
+        //     shadow
+        //   />
+        // }
       />
     </SideBarContainer>
   );

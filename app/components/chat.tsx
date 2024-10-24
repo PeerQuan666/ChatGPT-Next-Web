@@ -25,7 +25,6 @@ import MaxIcon from "../icons/max.svg";
 import MinIcon from "../icons/min.svg";
 import ResetIcon from "../icons/reload.svg";
 import BreakIcon from "../icons/break.svg";
-import SettingsIcon from "../icons/chat-settings.svg";
 import DeleteIcon from "../icons/clear.svg";
 import PinIcon from "../icons/pin.svg";
 import EditIcon from "../icons/rename.svg";
@@ -39,7 +38,6 @@ import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
-import RobotIcon from "../icons/robot.svg";
 import SizeIcon from "../icons/size.svg";
 import QualityIcon from "../icons/hd.svg";
 import StyleIcon from "../icons/palette.svg";
@@ -541,11 +539,11 @@ export function ChatActions(props: {
         session.mask.modelConfig.providerName = nextModel?.provider
           ?.providerName as ServiceProvider;
       });
-      showToast(
-        nextModel?.provider?.providerName == "ByteDance"
-          ? nextModel.displayName
-          : nextModel.name,
-      );
+      // showToast(
+      //   nextModel?.provider?.providerName == "ByteDance"
+      //     ? nextModel.displayName
+      //     : nextModel.name,
+      // );
     }
   }, [chatStore, currentModel, models]);
 
@@ -565,13 +563,13 @@ export function ChatActions(props: {
           icon={<BottomIcon />}
         />
       )}
-      {props.hitBottom && (
+      {/* {props.hitBottom && (
         <ChatAction
           onClick={props.showPromptModal}
           text={Locale.Chat.InputActions.Settings}
           icon={<SettingsIcon />}
         />
-      )}
+      )} */}
 
       {showUploadImage && (
         <ChatAction
@@ -625,11 +623,11 @@ export function ChatActions(props: {
         }}
       />
 
-      <ChatAction
+      {/* <ChatAction
         onClick={() => setShowModelSelector(true)}
         text={currentModelName}
         icon={<RobotIcon />}
-      />
+      /> */}
 
       {showModelSelector && (
         <Selector
@@ -1741,7 +1739,8 @@ function _Chat() {
                     </div>
                     {!isUser && (
                       <div className={styles["chat-model-name"]}>
-                        {message.model}
+                        AI
+                        {/* {message.model} */}
                       </div>
                     )}
 
